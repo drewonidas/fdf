@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdio.h>
 
 static int	*ft_to_array(char **line, int size)
 {
@@ -7,7 +8,7 @@ static int	*ft_to_array(char **line, int size)
 	int		s_index;
 	int		c_index;
 
-	map_line = (int *) malloc(sizeof(int *) * size);
+	map_line = (int *) malloc(sizeof(int) * size);
 	m_index = 0;
 	s_index = 0;
 	c_index = 0;
@@ -20,6 +21,7 @@ static int	*ft_to_array(char **line, int size)
 		}
 		s_index++;
 	}
+	map_line[m_index] = (int)'\0';
 	return (map_line);
 }
 
@@ -30,7 +32,7 @@ static int	ft_val_map(char *map)
 {
 	while (*map)
 	{
-		if (ft_isdigit(*map) || *map == ',')
+		if (ft_isdigit(*map++) || *map == ' ')
 			continue;
 		else
 			return (0);
@@ -49,17 +51,27 @@ int			ft_save_map(int fd, t_map *map)
 	int		index;
 
 	index = 0;
+	map->map = (int **)malloc(sizeof(int *) * 50);
 	while (get_next_line(fd, &line))
 	{
 		if (ft_val_map(line))
 		{
-			tmp = ft_strsplit(line, ',');
-			map->map[index++] = ft_to_array(tmp, ft_strlen(line));
+	ft_putendl("black");
+			tmp = ft_strsplit(line, ' ');
+			map->map[index] = ft_to_array(tmp, ft_strlen(line));
+			//int d = 0;
+			//while (map->map[index][d])
+				printf("%i \n", map->map[0][0]);
+			ft_arrdel(&tmp);
+			ft_strdel(&line);
 			continue;
 		}
 		else
 			return (-1);
-		return (1);
+		//return (1);
 	}
-	return (0);
+	map->map[index] = NULL;
+	if (line != NULL)
+		ft_strdel(&line);
+	return (1);
 }
