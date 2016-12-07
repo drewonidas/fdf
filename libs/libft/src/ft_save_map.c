@@ -8,11 +8,11 @@ static int	*ft_to_array(char **line, int size)
 	int		s_index;
 	int		c_index;
 
-	map_line = (int *) malloc(sizeof(int) * size);
+	map_line = (int *) malloc(sizeof(int) * (size + 1));
 	m_index = 0;
 	s_index = 0;
 	c_index = 0;
-	while (line[s_index])
+	while (line[s_index] && m_index < size)
 	{
 		if (ft_isdigit(line[s_index][c_index]))
 		{
@@ -30,10 +30,13 @@ static int	*ft_to_array(char **line, int size)
 **/
 static int	ft_val_map(char *map)
 {
-	while (*map)
+	while (*map != '\0')
 	{
-		if (ft_isdigit(*map++) || *map == ' ')
+		if (ft_isdigit(*map) || *map == ' ')
+		{
+			map++;
 			continue;
+		}
 		else
 			return (0);
 	}
@@ -49,28 +52,33 @@ int			ft_save_map(int fd, t_map *map)
 	char	**tmp;
 	char	*line;
 	int		index;
+	int		cnt;
 
+	cnt = 0;
+	tmp = NULL;
 	index = 0;
 	map->map = (int **)malloc(sizeof(int *) * 50);
 	while (get_next_line(fd, &line))
 	{
+		if (line == NULL)
+			break;
 		if (ft_val_map(line))
 		{
-	ft_putendl("black");
 			tmp = ft_strsplit(line, ' ');
-			map->map[index] = ft_to_array(tmp, ft_strlen(line));
-			//int d = 0;
-			//while (map->map[index][d])
-				printf("%i \n", map->map[0][0]);
+			cnt = 0;
+			while (tmp[cnt] != NULL)
+				cnt++;
+			map->map[index++] = ft_to_array(tmp, cnt);
 			ft_arrdel(&tmp);
 			ft_strdel(&line);
 			continue;
 		}
 		else
 			return (-1);
-		//return (1);
 	}
 	map->map[index] = NULL;
+	map->cols = cnt;
+	map->rows = index;
 	if (line != NULL)
 		ft_strdel(&line);
 	return (1);

@@ -6,13 +6,20 @@
 #include <fcntl.h>
 #include "libft.h"
 
-typedef struct		e_vector
+typedef struct		e_point
 {
 	int				x;
 	int				y;
 	int				z;
-}					t_vector;
+}					t_point;
 
-int		key_pressed(int key, void *game);
+typedef struct		e_gen
+{
+	t_point			*point;
+}					t_gen;
+
+int					key_pressed(int key, void *game);
+
+t_point				*set_points(t_map *map);
 
 #endif

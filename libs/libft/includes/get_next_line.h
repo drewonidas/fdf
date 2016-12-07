@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include "libft.h"
 
-#define BUFF_SIZE 1
+#define BUFF_SIZE 5000
 
 typedef struct	s_file
 {

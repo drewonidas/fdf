@@ -1,13 +1,12 @@
 #include "fdf.h"
 
-void			play(t_map *map)
+void			play()//t_map *map)
 {
-			ft_print_map(map);
-/*	t_win		*window;
-	//t_vector	v1, v2;
-	//void		*img;
+	t_win		*window;
+			//t_vector	v1, v2;
+			//void		*img;
 
-	window = ft_new_window(400, 400, title);
+	window = ft_new_window(400, 400, "brick");
 	//img = mlx_new_image(window->mlx, 200, 200);
 	//v1.x = 4;
 	//v1.y = 4;
@@ -22,25 +21,26 @@ void			play(t_map *map)
  // mlx_hook(win3, MotionNotify, PointerMotionMask, mouse_win3, 0);
 	mlx_loop(window->mlx);
 //	ft_print_map(gam->map);
-//	return (0);*/
+//	return (0);
 }
 
-int 		main(int ac, char **av)
+int 			main(int ac, char **av)
 {
-	int		fd;
-	t_map	map;
+	int			fd;
+	t_map		map;
+
 	fd = 0;
 	if (ac > 1)
 	{
 		fd = open(av[1], O_RDONLY);
 		if (ft_save_map(fd, &map))
 		{
-			ft_putendl("brom");
-			play(&map);
+			//ft_putendl("brom");
+			set_points(&map);
+			play();//&map);
 		}
 	}
 	else
 		ft_putendl("No map file specified");
-	ft_putendl("done!!");
 	return (0);
 }

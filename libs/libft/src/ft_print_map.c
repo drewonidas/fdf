@@ -8,13 +8,11 @@ void		ft_print_map(t_map *map)
 
 	lvl1 = 0;
 	lvl2 = 0;
-			//printf("%i \n", map->map[0][0]);
 	while (map->map[lvl1])
 	{
-		ft_putendl("bru");
-		while (map->map[lvl1][lvl2])
-			printf("%i \n", map->map[lvl1][lvl2++]);
-		//ft_putendl(ft_itoa((int)map->map[lvl1][lvl2++]));
+		while (lvl2 < map->cols)
+			ft_putnbr(map->map[lvl1][lvl2++]);
+		ft_putchar('\n');
 		lvl1++;
 		lvl2 = 0;
 	}
