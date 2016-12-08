@@ -6,11 +6,11 @@ int		expose_win(void *game)
 	draw((t_game) game);
 }
 */
-int		key_pressed(int key, void *window)
+int		key_pressed(int key, void *gen)
 {
 	if (key == 0xFF1B)
 	{
-		mlx_destroy_window(((t_win *)window)->mlx, ((t_win *)window)->win);
+		kill_generator((t_generator *)gen);
 		exit(0);
 	}
 	return (0);

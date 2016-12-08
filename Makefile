@@ -1,6 +1,6 @@
 NAME = fdf
 
-SRC = fdf.c event_func.c build_obj.c
+SRC = fdf.c event_func.c generator_funcs.c
 
 SRC_DIR = src/
 
