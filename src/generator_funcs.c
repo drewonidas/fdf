@@ -8,8 +8,8 @@ void				reload(t_generator *gen)
 	img = gen->img;
 	win = gen->win;
 	img->img_ptr = mlx_new_image(win->mlx, WIN_WID, WIN_HEI);
-	img->img_data = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->ln_len, &(img->endian)));
-	draw_map(gen);
+	img->img_data = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->ln_len), &(img->endian));
+	draw_img(gen);
 	mlx_put_image_to_window(win->mlx, win->win, img, 0, 0);
 	mlx_destroy_image(win->mlx, img);
 }
@@ -51,7 +51,7 @@ void				kill_generator(t_generator *gen)
 	free(gen);
 }
 
-t_generator			init_generator(t_map *map)
+t_generator			*init_generator(t_map *map)
 {
 	t_generator		*gen;
 

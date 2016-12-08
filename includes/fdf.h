@@ -20,7 +20,7 @@ typedef struct		e_point
 typedef struct		e_image
 {
 	void			*img_ptr;
-	char			**img_data;
+	char			*img_data;
 	int				bpp;
 	int				ln_len;
 	int				endian;
@@ -36,7 +36,7 @@ typedef struct		e_generator
 
 t_generator			*init_generator(t_map *map);
 
-t_generator			*kill_generator(t_generator *gen);
+void				kill_generator(t_generator *gen);
 
 int					key_pressed(int key, void *gen);
 
