@@ -47,17 +47,19 @@ static int	ft_val_map(char *map)
  * gets the lines from the map and stores it in a 2d array
  * returns 1 on succes, -1 if invalid map, and 0 if invalid fd
 **/
-int			ft_save_map(int fd, t_map *map)
+int			ft_save_map(int fd, t_map **map)
 {
 	char	**tmp;
 	char	*line;
 	int		index;
 	int		cnt;
+	t_map	*tmp_map;
 
 	cnt = 0;
 	tmp = NULL;
 	index = 0;
-	map->map = (int **)malloc(sizeof(int *) * 50);
+	tmp_map = (t_map *)malloc(sizeof(t_map));
+	tmp_map->map = (int **)malloc(sizeof(int *) * 50);
 	while (get_next_line(fd, &line))
 	{
 		if (line == NULL)
@@ -68,7 +70,7 @@ int			ft_save_map(int fd, t_map *map)
 			cnt = 0;
 			while (tmp[cnt] != NULL)
 				cnt++;
-			map->map[index++] = ft_to_array(tmp, cnt);
+			tmp_map->map[index++] = ft_to_array(tmp, cnt);
 			ft_arrdel(&tmp);
 			ft_strdel(&line);
 			continue;
@@ -76,9 +78,11 @@ int			ft_save_map(int fd, t_map *map)
 		else
 			return (-1);
 	}
-	map->map[index] = NULL;
-	map->cols = cnt;
-	map->rows = index;
+	tmp_map->map[index] = NULL;
+	tmp_map->cols = cnt;
+	tmp_map->rows = index;
+	if (*map == NULL)
+		*map = tmp_map;
 	if (line != NULL)
 		ft_strdel(&line);
 	return (1);

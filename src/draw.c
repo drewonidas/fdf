@@ -4,21 +4,18 @@ static void			draw_point(t_point point, t_image *img, int color)
 {
 	int				i;
 
-	i = ((int) point.x + (point.y * img->ln_len));
+	i = 0;
+	i = (int) point.x + (point.y * img->ln_len);
 	img->img_data[i] = color;
 }
 
 static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 {
-	int				len;
-	int				c;
 	int				done;
 	unsigned int	color;
 
-	len = 0;
-	c = 0;
 	done = FALSE;
-	color = mlx_get_color_value(gen->win->mlx, color);
+	color = mlx_get_color_value(gen->win->mlx, 0xFFFFFF);
 	while (!done)
 	{
 		draw_point(p1, gen->img, color);
@@ -38,25 +35,27 @@ static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 
 void				draw_img(t_generator *gen)
 {
-	t_point			tmp;
+	t_point			*tmp;
 	int				x;
 	int				y;
 	int				index;
 
-	tmp = NULL;
 	y = 0;
 	index = 0;
+	tmp = NULL;
 	while (y < gen->map->rows)
 	{
 		x = 0;
 		while (x < gen->map->cols)
 		{
+			printf("green");
 			index = (y * gen->map->cols) + (x + 1);
-			if (gen->points[index])
-				draw_line(tmp, gen->points[index], gen);
+			tmp = gen->points[x];
+			if (gen->points[index] != NULL)
+				draw_line(*tmp, *(gen->points[index]), gen);
 			index = ((y + 1) * gen->map->cols) + x;
-			if (gen->points[index])
-				draw_line(tmp, gen->points[index], gen);
+			if (gen->points[index] != NULL)
+				draw_line(*tmp, *(gen->points[index]), gen);
 			x++;
 		}
 		y++;

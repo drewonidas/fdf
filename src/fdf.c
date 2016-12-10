@@ -9,18 +9,18 @@ int					play(t_generator *gen)
 int 				main(int ac, char **av)
 {
 	int				fd;
-	t_map			map;
+	t_map			*map;
 	t_generator		*gen;
 
 	fd = 0;
 	gen = NULL;
+	map = NULL;
 	if (ac > 1)
 	{
 		fd = open(av[1], O_RDONLY);
 		if (ft_save_map(fd, &map))
 		{
-			gen = init_generator(&map);
-			play(gen);
+			gen = init_generator(map);
 			mlx_expose_hook(gen->win->win, play, gen);
 			mlx_key_hook(gen->win->win, key_pressed, gen);
 			mlx_loop(gen->win->mlx);

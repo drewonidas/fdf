@@ -193,7 +193,7 @@ char				**ft_arrdup(char **srci);
  ** map functions
  **/
 
-int					ft_save_map(int fd, t_map *map);
+int					ft_save_map(int fd, t_map **map);
 
 void				ft_print_map(t_map *map);
 

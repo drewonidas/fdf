@@ -10,6 +10,12 @@
 # define WIN_WID 400
 # define WIN_HEI 400
 
+/////////////////////
+//TODO: delete these
+#include <stdio.h>
+/////////////////////
+
+
 typedef struct		e_point
 {
 	double			x;
@@ -28,7 +34,7 @@ typedef struct		e_image
 
 typedef struct		e_generator
 {
-	t_point			*points;
+	t_point			**points;
 	t_image			*img;
 	t_win			*win;
 	t_map			*map;
@@ -40,7 +46,7 @@ void				kill_generator(t_generator *gen);
 
 int					key_pressed(int key, void *gen);
 
-t_point				*set_points(t_map *map);
+t_point				**set_points(t_map *map);
 
 void				reload(t_generator *gen);
 
