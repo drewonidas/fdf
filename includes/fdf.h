@@ -6,7 +6,7 @@
 # include <fcntl.h>
 # include "libft.h"
 
-# define BLK_SIZE 20
+# define BLK_SIZE 40
 # define WIN_WID 400
 # define WIN_HEI 400
 

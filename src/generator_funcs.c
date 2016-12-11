@@ -11,7 +11,6 @@ void				reload(t_generator *gen)
 	img->img_data = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->ln_len), &(img->endian));
 	draw_img(gen);
 	mlx_put_image_to_window(win->mlx, win->win, img->img_ptr, 20, 20);
-	ft_putendl("gosh:");
 	mlx_destroy_image(win->mlx, img->img_ptr);
 }
 
@@ -27,16 +26,17 @@ t_point				**set_points(t_map *map)
 	c = 0;
 	index = 0;
 	tmp = NULL;
-	points = (t_point **)malloc(sizeof(t_point) * (map->cols * map->rows + 1));
-	while (map->map[r])
+	points = (t_point **)malloc(sizeof(t_point*) * (map->cols * map->rows + 1));
+	while (r < map->rows)
 	{
-		while (map->map[r][c] != '\0')
+		while (c < map->cols /*map->map[r][c] != '\0'*/)
 		{
 			tmp = (t_point *)malloc(sizeof(t_point));
 			tmp->x = c * BLK_SIZE;
 			tmp->y = r * BLK_SIZE;
 			tmp->z = map->map[r][c];
 			points[index++] = tmp;
+			c++;
 		}
 		r++;
 		c = 0;
@@ -60,6 +60,7 @@ void				kill_generator(t_generator *gen)
 	}
 	mlx_destroy_window(win->mlx, win->win);
 	free(gen->img);
+	c = 0;
 	if (gen->map->map != NULL)
 	{
 		while (gen->map->map[c] != NULL)

@@ -10,7 +10,7 @@ LIB = libs/libft/
 
 MLX = libs/minilibx/
 
-OPTS = -Wall -Werror -Wextra
+OPTS = #-Wall -Werror -Wextra
 
 all:
 	@make -C $(LIB)

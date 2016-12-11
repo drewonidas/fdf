@@ -47,7 +47,7 @@ static int	ft_val_map(char *map)
  * gets the lines from the map and stores it in a 2d array
  * returns 1 on succes, -1 if invalid map, and 0 if invalid fd
 **/
-int			ft_save_map(int fd, t_map **map)
+t_map		*ft_save_map(int fd)
 {
 	char	**tmp;
 	char	*line;
@@ -76,14 +76,12 @@ int			ft_save_map(int fd, t_map **map)
 			continue;
 		}
 		else
-			return (-1);
+			return (NULL);
 	}
 	tmp_map->map[index] = NULL;
 	tmp_map->cols = cnt;
 	tmp_map->rows = index;
-	if (*map == NULL)
-		*map = tmp_map;
 	if (line != NULL)
 		ft_strdel(&line);
-	return (1);
+	return (tmp_map);
 }
