@@ -53,7 +53,7 @@ typedef struct		e_generator
 	void			*win;
 }					t_generator;
 
-typedef struct		e_matrice
+typedef struct		e_matrix
 {
 	double			a1;
 	double			a2;
@@ -71,7 +71,7 @@ typedef struct		e_matrice
 	double			d2;
 	double			d3;
 	double			d4;
-}					t_matrice;
+}					t_matrix;
 
 t_generator			*init_generator(t_map *map);
 
@@ -88,5 +88,11 @@ void				draw_img(t_generator *gen);
 t_map				*ft_save_map(int fd);
 
 void				ft_print_map(t_map *map);
+
+void				rotate(t_point center, double angle, char axis);
+
+void				translate(t_point center, double x, double y, double z);
+
+void				scale(t_point center, int s_factor);
 
 #endif
