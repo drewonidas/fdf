@@ -21,13 +21,9 @@ int 				main(int ac, char **av)
 		if ((map = ft_save_map(fd)) != NULL)
 		{
 			gen = init_generator(map);
-			int y = 0;
-			int x = 0;
-			while {}
-			printf("%i\n", (int)gen->points[1][1].x);
-			mlx_expose_hook(gen->win->win, play, gen);
-			mlx_key_hook(gen->win->win, key_pressed, gen);
-			mlx_loop(gen->win->mlx);
+			mlx_expose_hook(gen->win, play, gen);
+			mlx_key_hook(gen->win, key_pressed, gen);
+			mlx_loop(gen->mlx);
 		}
 		else
 			ft_putendl("bad map file");

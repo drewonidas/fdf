@@ -22,27 +22,13 @@
 # define ABS(x) (((x) < 0) ? -(x) : (x))
 
 typedef int			t_bool;
+
 typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
-typedef struct		s_map
-{
-	int				cols;
-	int				rows;
-	int				**map;
-}					t_map;
-
-typedef struct		s_win
-{
-	void			*mlx;
-	void			*win;
-	char			*title;
-	int				size;
-}					t_win;
 
 /**
  ** mem functions
@@ -187,20 +173,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 void				ft_arrdel(char ***arr_ptr);
 
-char				**ft_arrdup(char **srci);
-
-/**
- ** map functions
- **/
-
-t_map				*ft_save_map(int fd);
-
-void				ft_print_map(t_map *map);
-
-/**
- ** window functions
- **/
-
-t_win				*ft_new_window(int wid, int hei, char *title);
+char				**ft_arrdup(char **src);
 
 #endif

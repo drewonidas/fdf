@@ -25,7 +25,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 	  ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c \
 	  ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_strrev.c ft_itoa_base.c \
 	  ft_putnbr_base.c ft_indexof.c ft_arrdel.c ft_arrdup.c ft_printf.c \
-	  get_next_line.c ft_new_window.c ft_save_map.c ft_print_map.c
+	  get_next_line.c
 
 PRF_SRC = print_func.c print_func_2.c pad.c utils.c
 
