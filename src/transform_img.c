@@ -18,7 +18,7 @@ static void			calc_new_points(t_point *point, t_matrix *m, t_point center)
 	point->y += center.y;
 }
 
-void			tranform_img(t_matrix *matrix, t_map *map)
+void			transform_img(t_matrix *matrix, t_map *map)
 {
 	int			c;
 	int			r;
