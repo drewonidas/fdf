@@ -4,6 +4,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <math.h>
 # include "libft.h"
 # include "mlx.h"
 
@@ -21,6 +22,7 @@ typedef struct		e_point
 {
 	double			x;
 	double			y;
+	double			s;
 	double			z;
 }					t_point;
 
@@ -33,6 +35,7 @@ typedef	struct		s_line
 typedef struct		s_map
 {
 	int				rows;
+	t_point			*center;
 	t_line			**lines;
 }					t_map;
 
@@ -89,12 +92,12 @@ t_map				*ft_save_map(int fd);
 
 void				ft_print_map(t_map *map);
 
-void				transform_img(t_matrix *matrix, t_point center);
+void				transform_img(t_matrix *matrix, t_map *map);
 
-void				rotate(t_point center, double angle, char axis);
+void				rotate(t_map *map, double angle, char axis);
 
-void				translate(t_point center, double x, double y, double z);
+void				translate(t_map *map, double x, double y, double z);
 
-void				scale(t_point center, int s_factor);
+void				scale(t_map *map, int s_factor);
 
 #endif
