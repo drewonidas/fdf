@@ -89,6 +89,8 @@ t_map				*ft_save_map(int fd);
 
 void				ft_print_map(t_map *map);
 
+void				transform_img(t_matrix *matrix, t_point center);
+
 void				rotate(t_point center, double angle, char axis);
 
 void				translate(t_point center, double x, double y, double z);

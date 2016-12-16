@@ -21,6 +21,7 @@ int 				main(int ac, char **av)
 		if ((map = ft_save_map(fd)) != NULL)
 		{
 			gen = init_generator(map);
+			rotate();
 			mlx_expose_hook(gen->win, play, gen);
 			mlx_key_hook(gen->win, key_pressed, gen);
 			mlx_loop(gen->mlx);
