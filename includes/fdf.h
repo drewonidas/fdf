@@ -22,8 +22,8 @@ typedef struct		e_point
 {
 	double			x;
 	double			y;
-	double			s;
 	double			z;
+	double			s;
 }					t_point;
 
 typedef	struct		s_line
@@ -55,6 +55,22 @@ typedef struct		e_generator
 	void			*mlx;
 	void			*win;
 }					t_generator;
+
+/////////////////////
+//TODO: delete these
+typedef struct		e_scale_mtx
+{
+	double			a1;
+	double			a2;
+	double			a3;
+	double			b1;
+	double			b2;
+	double			b3;
+	double			c1;
+	double			c2;
+	double			c3;
+}					t_scale_mtx;
+/////////////////////
 
 typedef struct		e_matrix
 {
@@ -88,16 +104,23 @@ void				reload(t_generator *gen);
 
 void				draw_img(t_generator *gen);
 
+/////////////////////
+//TODO: delete these
+void				draw_map(t_generator *e);
+/////////////////////
+
 t_map				*ft_save_map(int fd);
 
 void				ft_print_map(t_map *map);
 
+void				calc_center(t_map *map);
+
 void				transform_img(t_matrix *matrix, t_map *map);
 
-void				rotate(t_map *map, double angle, char axis);
+void				rotate_map(t_map *map, double angle, char axis);
 
-void				translate(t_map *map, double x, double y, double z);
+void				translate_map(t_map *map, double x, double y, double z);
 
-void				scale(t_map *map, int s_factor);
+void				scale_map(t_map *map, int s_factor);
 
 #endif

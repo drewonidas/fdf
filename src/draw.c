@@ -1,12 +1,24 @@
 #include "fdf.h"
 
+static int			valid_point(t_point point)
+{
+	if (point.x > WIN_WID || point.x < 0 ||
+			point.y > WIN_HEI || point.y < 0)
+		return (0);
+	else
+		return (1);
+}
+
 static void			draw_point(t_point point, t_image *img, int color)
 {
 	int				i;
 
 	i = 0;
-	i = (int) point.x + (point.y * img->ln_len);
-	img->img_data[i] = color;
+	if (valid_point(point))
+	{
+		i = (int) point.x + (point.y * img->ln_len);
+		img->img_data[i] = color;
+	}
 }
 
 static void			draw_line(t_point p1, t_point p2, t_generator *gen)

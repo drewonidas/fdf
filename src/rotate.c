@@ -42,7 +42,7 @@ static t_matrix		*rotate_z(double angle)
 	return (matrix);
 }
 
-void				rotate(t_map *map, double angle, char axis)
+void				rotate_map(t_map *map, double angle, char axis)
 {
 	t_matrix		*tmp;
 
