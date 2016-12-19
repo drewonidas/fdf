@@ -21,27 +21,6 @@ static void			draw_point(t_point point, t_image *img, int color)
 	}
 }
 
-void				BresenhamLine(t_point p1, t_point p2, t_generator *gen)
-{
-	int p, const1, const2;
-   	p = BLK_WID * (p2.y - p1.y) - (p2.x - p1.x);
-	const1 = BLK_WID * (p2.y - p1.y);
-	const2 = BLK_HEI * (p2.y - p1.y) - (p2.x - p1.x);
-   	//int xend = BLK_WID * (p2.y - p1.y) - (p2.x - p1.x);
-	while (p1.x < p2.x)
-	{
-		draw_point(p1, gen->img, color);
-		p1.x++;
-		if (p < 0)
-			p = p + const1;
-		else
-		{ 
-			p1.y++;
-			p = p + const2;
-		}
-	}
-}
-/*
 static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 {
 	int				done;
@@ -53,7 +32,7 @@ static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 	if (p1.z > 0 || p2.z > 0)
 		color = 0xCCFF22;//mlx_get_color_value(gen->mlx, (0x55FFFF >> 8));
 	else
-		color = 0xFFFFFF;//mlx_get_color_value(gen->mlx, 0x55FFFF >> 8);
+		color = 0xE0D3CC;//mlx_get_color_value(gen->mlx, 0x55FFFF >> 8);
 	valx = (p1.x < p2.x ? 1 : -1);
 	valy = (p1.y < p2.y ? 1 : -1);
 	while (!done)
@@ -71,7 +50,7 @@ static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 			p1.y += valy;
 		}
 	}	
-}*/
+}
 
 void				draw_img(t_generator *gen)
 {

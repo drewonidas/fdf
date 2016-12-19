@@ -54,8 +54,7 @@ int 				main(int ac, char **av)
 			int h = (WIN_HEI + 100) / 2;
 			//double s = (w - 600) / (gen->map->center->x);
 			//translate_map(gen->map, 300, 300, 0);
-			rotate_map(gen->map, 45, 'y');
-			rotate_map(gen->map, -35.264, 'x');
+			rotate_map(gen->map, -2, 'y');
 			//rotate_map(gen->map, -15, 'z');
 			scale_map(gen->map, 1);
 			translate_map(gen->map, -gen->map->center->y + w, -gen->map->center->y + h, 0);
