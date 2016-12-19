@@ -5,11 +5,11 @@ void				reload(t_generator *gen)
 	t_image			*img;
 
 	img = gen->img;
-	img->img_ptr = mlx_new_image(gen->mlx, WIN_WID + 100, WIN_HEI + 100);
+	img->img_ptr = mlx_new_image(gen->mlx, WIN_WID, WIN_HEI);
 	img->img_data = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->ln_len), &(img->endian));
-	//draw_img(gen);
-	draw_map(gen);
-	mlx_put_image_to_window(gen->mlx, gen->win, img->img_ptr, -100, -100);
+	draw_img(gen);
+	//draw_map(gen);
+	mlx_put_image_to_window(gen->mlx, gen->win, img->img_ptr, 0, 0);
 	mlx_destroy_image(gen->mlx, img->img_ptr);
 }
 

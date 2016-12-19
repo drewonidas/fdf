@@ -20,6 +20,19 @@ static void			draw_point(t_point point, t_image *img, int color)
 		img->img_data[i] = color;
 	}
 }
+/*
+		color = 0x0D6386;
+	else if (z >= 0 && z < 10)
+		color = 0x32A862;
+	else if (z >= 10 && z < 20)
+		color = 0x8FC89A;
+	else if (z >= 20 && z < 50)
+		color = 0xFAECBE;
+	else if (z >= 50 && z < 70)
+		color = 0x996E56;
+	else if (z >= 70)
+		color = 0xE0D3CC;
+*/
 
 void				draw_line(t_point p1, t_point p2, t_generator *gen)
 {
@@ -28,17 +41,29 @@ void				draw_line(t_point p1, t_point p2, t_generator *gen)
 	int				const2;
 	unsigned int	color;
 
-   	p = BLK_WID * (p2.y - p1.y) - (p2.x - p1.x);
-	const1 = BLK_WID * (p2.y - p1.y);
-	const2 = BLK_HEI * (p2.y - p1.y) - (p2.x - p1.x);
+   	p = 2 * (p2.y - p1.y) - (p2.x - p1.x);
+	const1 = 2 * (p2.y - p1.y);
+	const2 = 2 * (p2.y - p1.y) - (p2.x - p1.x);
 	if (p1.z > 0 || p2.z > 0)
-		color = 0xCCFF22;//mlx_get_color_value(gen->mlx, (0x55FFFF >> 8));
+		color = 0x0D6386;//mlx_get_color_value(gen->mlx, (0x55FFFF >> 8));
 	else
-		color = 0xFFFFFF;//mlx_get_color_value(gen->mlx, 0x55FFFF >> 8);
-	while (p1.x < p2.x)
+		color = 0x000000;//mlx_get_color_value(gen->mlx, 0x55FFFF >> 8);
+/*	while (p1.x < p2.x)
 	{
 		draw_point(p1, gen->img, color);
 		p1.x++;
+		if (p < 0)
+			p = p + const1;
+		else
+		{ 
+			p1.y++;
+			p = p + const2;
+		}
+	}*/
+	while (p1.y < p2.y)
+	{
+		draw_point(p1, gen->img, color);
+		p1.y++;
 		if (p < 0)
 			p = p + const1;
 		else

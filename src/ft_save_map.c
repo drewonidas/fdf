@@ -17,8 +17,8 @@ static t_line	*ft_to_array(char **line, int row_num)
 	while (line[index] && index < size)
 	{
 		map_line->points[index] = (t_point *)malloc(sizeof(t_point));
-		map_line->points[index]->x = index;// * BLK_WID;
-		map_line->points[index]->y = row_num;// * BLK_HEI;
+		map_line->points[index]->x = index * BLK_WID;
+		map_line->points[index]->y = row_num * BLK_HEI;
 		map_line->points[index]->z = ft_atoi(line[index]);
 		index++;
 	}

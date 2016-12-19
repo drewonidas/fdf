@@ -8,8 +8,8 @@
 # include "libft.h"
 # include "mlx.h"
 
-# define BLK_WID 60
-# define BLK_HEI 40
+# define BLK_WID 40 
+# define BLK_HEI 20
 # define WIN_WID 800
 # define WIN_HEI 600
 
