@@ -22,7 +22,8 @@ void				translate_map(t_map *map, double x, double y, double z)
 	tmp = translate(x, y, z);
 	transform_img(tmp, map);
 	calc_center(map);
-	free(tmp);*/
+	free(tmp);
+	*/
 	t_line			**lines = map->lines;
 	int				c = 0;
 	int				r = 0;

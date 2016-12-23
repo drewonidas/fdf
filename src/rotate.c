@@ -1,6 +1,6 @@
 #include "fdf.h"
 
-static t_matrix		*rotate_x(double angle)
+t_matrix		*rotate_x(double angle)
 {
 	t_matrix		*matrix;
 
@@ -14,7 +14,7 @@ static t_matrix		*rotate_x(double angle)
 	return (matrix);
 }
 
-static t_matrix		*rotate_y(double angle)
+t_matrix		*rotate_y(double angle)
 {
 	t_matrix		*matrix;
 
@@ -28,7 +28,7 @@ static t_matrix		*rotate_y(double angle)
 	return (matrix);
 }
 
-static t_matrix		*rotate_z(double angle)
+t_matrix		*rotate_z(double angle)
 {
 	t_matrix		*matrix;
 

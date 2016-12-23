@@ -27,7 +27,7 @@ static void		draw_line_params(t_point *point1, t_point *point2, double *tab)
 	tab[1] = point1->x < point2->x ? 1 : -1;
 	tab[2] = fabs(point1->y - point2->y);
 	tab[3] = point1->y < point2->y ? 1 : -1;
-	tab[4] = (tab[0] > tab[2] ? tab[0] : -tab[2]) * 0.5;
+	tab[4] = (tab[0] > tab[2] ? tab[0] : -tab[2]) * 2;
 }
 
 static void		draw_point(t_point *point, t_generator *e, int color)
