@@ -19,21 +19,7 @@ int					play(t_generator *gen)
 	reload(gen);
 	return (0);
 }
-/*
-void	adapt_map(t_env *e)
-{
-	int		w;
-	int		h;
-	double	s;
 
-	w = (WINDOW_SIZE_W + 100) / 2;
-	h = (WINDOW_SIZE_H + 100) / 2;
-	e->center.x == 0 ? e->center.x = 10 : e->center.x;
-	s = (w - 600) / (e->center.x);
-	ft_cal_translat(e, -e->center.x + w, -e->center.y + h, 0);
-	ft_cal_scale(e, s);
-}
-*/
 int 				main(int ac, char **av)
 {
 	int				fd;
@@ -54,7 +40,8 @@ int 				main(int ac, char **av)
 			//int h = (WIN_HEI) / 2;
 			//scale_map(gen->map, 1);
 			//translate_map(gen->map, -gen->map->center->y + w, -gen->map->center->y + h, 0);
-			
+			//t_matrix *m = modal_projection();
+			//transform_img(m, gen->map);			
 			mlx_expose_hook(gen->win, play, gen);
 			mlx_key_hook(gen->win, key_pressed, gen);
 			mlx_loop(gen->mlx);

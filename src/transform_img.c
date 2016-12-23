@@ -5,24 +5,24 @@ static void			calc_new_points(t_point *point, t_matrix *m, t_point center)
 	double			tmp_x;
 	double			tmp_y;
 	double			tmp_z;
-	double			tmp_s;
+//	double			tmp_s;
 
 	//point->x -= center.x;
 	//point->y -= center.y;
-	tmp_x = (m->a1 * point->x) + (m->a2 * point->y) + (m->a3 * point->z) + (m->a4 * point->s);
-	tmp_y = (m->b1 * point->x) + (m->b2 * point->y) + (m->b3 * point->z) + (m->b4 * point->s);
-	tmp_z = (m->c1 * point->x) + (m->c2 * point->y) + (m->c3 * point->z) + (m->c4 * point->s);
-	tmp_s = (m->d1 * point->x) + (m->d2 * point->y) + (m->d3 * point->z) + (m->d4 * point->s);
+	tmp_x = (m->a1 * point->x) + (m->a2 * point->y) + (m->a3 * point->z) ;//+ (m->a4 * point->s);
+	tmp_y = (m->b1 * point->x) + (m->b2 * point->y) + (m->b3 * point->z) ;//+ (m->b4 * point->s);
+	tmp_z = (m->c1 * point->x) + (m->c2 * point->y) + (m->c3 * point->z) ;//+ (m->c4 * point->s);
+//	tmp_s = (m->d1 * point->x) + (m->d2 * point->y) + (m->d3 * point->z) + (m->d4 * point->s);
 	point->x = center.x;
 	point->z = tmp_z;
 	point->y = tmp_y;
 	point->x = tmp_x;
-	point->s = tmp_s;
+//	point->s = tmp_s;
 	//point->x += center.x;
 	//point->y += center.y;
 }
 
-t_matrice			*get_projection_mtx(int axis)
+t_matrix			*get_projection_mtx(int axis)
 {
 	t_matrix		*mtx;
 
@@ -32,7 +32,7 @@ t_matrice			*get_projection_mtx(int axis)
 		mtx->a1 = 1;
 		mtx->b2 = 1;
 	}
-	return (mtx):
+	return (mtx);
 }
 
 t_matrix			*modal_projection()
@@ -52,7 +52,7 @@ t_matrix			*modal_projection()
 	mtx_transform->a3 = rot_y->a3 * rot_x->a3 * mtx_project->a3;
 //	mtx_tranform->a4 = rot_y->a4 * rot_x->a4;
 	
-	mtx_tranasform->b1 = rot_y->b1 * rot_x->b1 * mtx_project->b1;
+	mtx_transform->b1 = rot_y->b1 * rot_x->b1 * mtx_project->b1;
 	mtx_transform->b2 = rot_y->b2 * rot_x->b2 * mtx_project->b2;
 	mtx_transform->b3 = rot_y->b3 * rot_x->b3 * mtx_project->b3;
 //	mtx_tranform->b4 = rot_y->b4 * rot_x->b4;
@@ -68,7 +68,7 @@ t_matrix			*modal_projection()
 //	mtx_tranform->d4 = rot_y->d4 * rot_x->d4;
 	free(mtx_project);
 	free(rot_y);
-	free(rot_x)
+	free(rot_x);
 	return (mtx_transform);
 }
 
@@ -76,7 +76,6 @@ void				transform_img(t_matrix *matrix, t_map *map)
 {
 	int				c;
 	int				r;
-	t_matr
 
 	r = 0;
 	while (r < map->rows)
