@@ -1,7 +1,7 @@
 NAME = fdf
 
-SRC = fdf.c event_func.c generator_funcs.c draw.c ft_save_map.c \
-	  transform_img.c rotate.c translate.c scale.c tester.c
+SRC = fdf.c event_func.c projector.c draw.c read_model_data.c \
+	  matrix_mult.c rotate.c translate.c scale.c tester.c \
 
 SRC_DIR = src/
 

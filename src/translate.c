@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "projector.h"
 
 t_matrix			*translate(double tx, double ty, double tz)
 {
@@ -15,7 +15,7 @@ t_matrix			*translate(double tx, double ty, double tz)
 	return (matrix);
 }
 
-void				translate_map(t_map *map, double x, double y, double z)
+void				translate_model(t_model *model, double x, double y, double z)
 {
 	/*t_matrix		*tmp;
 
@@ -24,20 +24,21 @@ void				translate_map(t_map *map, double x, double y, double z)
 	calc_center(map);
 	free(tmp);
 	*/
-	t_line			**lines = map->lines;
+	t_row			**rows = model->rows;
 	int				c = 0;
 	int				r = 0;
 
-	while (r < map->rows)
+	while (r < model->row_cnt)
 	{
 		c = 0;
-		while (c < lines[r]->cols)
+		while (c < rows[r]->col_cnt)
 		{
-			lines[r]->points[c]->x += x;
-			lines[r]->points[c]->y += y;
-			lines[r]->points[c]->z += z;
+			rows[r]->points[c]->x += x;
+			rows[r]->points[c]->y += y;
+			rows[r]->points[c]->z += z;
 			c++;
 		}
 		r++;
 	}
+	calc_center(model);
 }

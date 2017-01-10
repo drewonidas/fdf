@@ -1,25 +1,4 @@
-#include "fdf.h"
-
-static int			valid_point(t_point point)
-{
-	if (point.x > WIN_WID || point.x < 0 ||
-			point.y > WIN_HEI || point.y < 0)
-		return (0);
-	else
-		return (1);
-}
-
-static void			draw_point(t_point point, t_image *img, int color)
-{
-	int				i;
-
-	i = 0;
-	if (valid_point(point))
-	{
-		i = ((int) point.x * 4) + (point.y * img->ln_len);
-		img->img_data[i] = color;
-	}
-}
+#include "projector.h"
 
 /*void				draw_line(t_point p1, t_point p2, t_generator *gen)
 {
@@ -69,7 +48,30 @@ static void			draw_point(t_point point, t_image *img, int color)
 	}
 }
 */
-static void			draw_line(t_point p1, t_point p2, t_generator *gen)
+
+static int			valid_point(t_point p)
+{
+	if (p.x > WIN_WID || p.x < 0 || p.y > WIN_HEI || p.y < 0)
+		return (0);
+	else
+		return (1);
+}
+
+static void			draw_point(t_point point, t_model_img *img, int color)
+{
+	int				i;
+
+	i = 0;
+	if (valid_point(point))
+	{
+		i = ((int) point.x * 4) + (point.y * img->ln_len);
+		img->img_data[i] = color;
+		img->img_data[i++] = color >> 8;
+		img->img_data[i++] = color >> 16;
+	}
+}
+
+static void			draw_line(t_point p1, t_point p2, t_projector *proj)
 {
 	int				done;
 	int				valx;
@@ -77,15 +79,15 @@ static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 	unsigned int	color;
 
 	done = FALSE;
-	if (p1.z > 0 || p2.z > 0)
-		color = 0xCCFF22;//mlx_get_color_value(gen->mlx, (0x55FFFF >> 8));
-	else
+	//if (p1.z > 0 || p2.z > 0)
+	//	color = 0xCCFF22;//mlx_get_color_value(gen->mlx, (0x55FFFF >> 8));
+	//else
 		color = 0x00FF55;//mlx_get_color_value(gen->mlx, 0x55FFFF >> 8);
 	valx = (p1.x < p2.x ? 1 : -1);
 	valy = (p1.y < p2.y ? 1 : -1);
 	while (!done)
 	{
-		draw_point(p1, gen->img, color);
+		draw_point(p1, proj->img, color);
 		done = TRUE;
 		if ((int)p1.x != (int)p2.x)
 		{
@@ -100,7 +102,7 @@ static void			draw_line(t_point p1, t_point p2, t_generator *gen)
 	}	
 }
 
-void				draw_img(t_generator *gen)
+void				rastarize_model(t_projector *proj)
 {
 	t_point			*p1;
 	t_point			*p2;
@@ -110,21 +112,21 @@ void				draw_img(t_generator *gen)
 	y = 0;
 	p1 = NULL;
 	p2 = NULL;
-	while (y < gen->map->rows)
+	while (y < proj->model->row_cnt)
 	{
 		x = 0;
-		while (x < gen->map->lines[y]->cols && gen->map->lines[y]->points[x])
+		while (x < proj->model->rows[y]->col_cnt && proj->model->rows[y]->points[x])
 		{
-			p1 = gen->map->lines[y]->points[x];
-			if (gen->map->lines[y]->points[x + 1] != NULL)
+			p1 = proj->model->rows[y]->points[x];
+			if (proj->model->rows[y]->points[x + 1] != NULL)
 			{
-				p2 = gen->map->lines[y]->points[x + 1];
-				draw_line(*p1, *p2, gen);
+				p2 = proj->model->rows[y]->points[x + 1];
+				draw_line(*p1, *p2, proj);
 			}
-			if (gen->map->lines[y + 1] != NULL)
+			if (proj->model->rows[y + 1] != NULL)
 			{
-				p2 = gen->map->lines[y + 1]->points[x];
-				draw_line(*p1, *p2, gen);
+				p2 = proj->model->rows[y + 1]->points[x];
+				draw_line(*p1, *p2, proj);
 			}
 			x++;
 		}

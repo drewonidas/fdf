@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "projector.h"
 
 int		point_out_window(t_point *point1)
 {
@@ -27,10 +27,10 @@ static void		draw_line_params(t_point *point1, t_point *point2, double *tab)
 	tab[1] = point1->x < point2->x ? 1 : -1;
 	tab[2] = fabs(point1->y - point2->y);
 	tab[3] = point1->y < point2->y ? 1 : -1;
-	tab[4] = (tab[0] > tab[2] ? tab[0] : -tab[2]) * 2;
+	tab[4] = (tab[0] > tab[2] ? tab[0] : -tab[2]) * 0.5;
 }
 
-static void		draw_point(t_point *point, t_generator *e, int color)
+static void		draw_point(t_point *point, t_projector *e, int color)
 {
 	int i;
 
@@ -40,7 +40,7 @@ static void		draw_point(t_point *point, t_generator *e, int color)
 	e->img->img_data[++i] = color >> 16;
 }
 
-static void		draw_line(t_point p1, t_point p2, t_generator *e)
+static void		draw_line(t_point p1, t_point p2, t_projector *e)
 {
 	double	tab[6];
 	int		state;
@@ -70,25 +70,25 @@ static void		draw_line(t_point p1, t_point p2, t_generator *e)
 	}
 }
 
-void			draw_map(t_generator *e)
+void			draw_map(t_projector *e)
 {
 	int			x;
 	int			y;
 	t_point		p1;
 
 	y = 0;
-	while (y < e->map->rows)
+	while (y < e->model->row_cnt)
 	{
 		x = 0;
-		while (x < (e->map->lines[y]->cols))
+		while (x < (e->model->rows[y]->col_cnt))
 		{
-			p1 = (*e->map->lines[y]->points[x]);
-			if (e->map->lines[y]->points[x + 1])
-				draw_line(p1, (*e->map->lines[y]->points[x + 1]), e);
-			if (e->map->lines[y + 1])
-				if (e->map->lines[y + 1]->points[x] &&
-					x <= e->map->lines[y + 1]->cols)
-					draw_line(p1, (*e->map->lines[y + 1]->points[x]), e);
+			p1 = (*e->model->rows[y]->points[x]);
+			if (e->model->rows[y]->points[x + 1])
+				draw_line(p1, (*e->model->rows[y]->points[x + 1]), e);
+			if (e->model->rows[y + 1])
+				if (e->model->rows[y + 1]->points[x] &&
+					x <= e->model->rows[y + 1]->col_cnt)
+					draw_line(p1, (*e->model->rows[y + 1]->points[x]), e);
 			x++;
 		}
 		y++;

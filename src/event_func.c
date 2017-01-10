@@ -1,32 +1,52 @@
-#include "fdf.h"
+#include "projector.h"
+//TODO: delete
+#include <stdio.h>
 
-/*
-int		expose_win(void *game)
+void	scale_view(int key, t_projector *proj)
 {
-	draw((t_game) game);
+	if (key == BTN_PGUP)
+		scale_model(proj->model, 2);
+	if (key == BTN_PGDW)
+		scale_model(proj->model, -5);
 }
-*/
 
-void	rotate_model(int key, t_generator *gen)
+static void		pvt_rot(t_model *model, double angle, char axis)
+{
+	//int w = (WIN_WID) / 2;
+	//int h = (WIN_HEI) / 2;
+
+	int cx = model->center->x;
+	int cy = model->center->x;
+	translate_model(model, -cx, -cy, 0);
+	rotate_model(model, angle, axis);
+	translate_model(model, cx, cy, 0);
+}
+
+void	rotate_view(int key, t_projector *proj)
 {
 	if (key == BTN_UP)
-		rotate_map(gen->map, MOVE_ROT_X_U, 'z');
+		pvt_rot(proj->model, (double)MOVE_ROT_X_U, 'x');
 	if (key == BTN_DOWN)
-		rotate_map(gen->map, MOVE_ROT_X_D, 'z');
+		pvt_rot(proj->model, (double)MOVE_ROT_X_D, 'x');
 	if (key == BTN_LEFT)
-		rotate_map(gen->map, MOVE_ROT_X_U, 'y');
+		pvt_rot(proj->model, (double)MOVE_ROT_Y_U, 'y');
 	if (key == BTN_RIGHT)
-		rotate_map(gen->map, MOVE_ROT_X_D, 'y');
-	reload(gen);
+		pvt_rot(proj->model, (double)MOVE_ROT_Y_D, 'y');
+	if (key == BTN_MIN)
+		pvt_rot(proj->model, (double)MOVE_ROT_Z_U, 'z');
+	if (key == BTN_PLS)
+		pvt_rot(proj->model, (double)MOVE_ROT_Z_D, 'z');
 }
 
-int		key_pressed(int key, void *gen)
+int		key_pressed(int key, void *proj)
 {
 	if (key == 0xFF1B)
 	{
-		kill_generator((t_generator *)gen);
+		kill_projector((t_projector *)proj);
 		exit(0);
 	}
-	rotate_model(key, (t_generator *)gen);
+	rotate_view(key, (t_projector *)proj);
+	//scale_view(key, (t_projector *)proj);
+	refresh(proj);
 	return (0);
 }

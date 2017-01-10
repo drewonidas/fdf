@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "projector.h"
 
 t_matrix			*scale(int s)
 {
@@ -12,11 +12,11 @@ t_matrix			*scale(int s)
 	return (matrix);
 }
 
-void				scale_map(t_map *map, int s_factor)
+void				scale_model(t_model *model, int s_factor)
 {
 	t_matrix		*tmp;
 
 	tmp = scale(s_factor);
-	transform_img(tmp, map);
+	transform_model(tmp, model);
 	free(tmp);
 }

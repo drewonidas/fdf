@@ -1,4 +1,4 @@
-#include "fdf.h"
+#include "projector.h"
 
 t_matrix		*rotate_x(double angle)
 {
@@ -7,8 +7,8 @@ t_matrix		*rotate_x(double angle)
 	matrix = (t_matrix *)malloc(sizeof(t_matrix));
 	matrix->a1 = 1;
 	matrix->b2 = cos(angle);
-	matrix->b3 = -sin(angle);
-	matrix->c2 = sin(angle);
+	matrix->b3 = sin(angle);
+	matrix->c2 = -sin(angle);
 	matrix->c3 = cos(angle);
 	matrix->d4 = 1;
 	return (matrix);
@@ -20,8 +20,8 @@ t_matrix		*rotate_y(double angle)
 
 	matrix = (t_matrix *)malloc(sizeof(t_matrix));
 	matrix->a1 = cos(angle);
-	matrix->a3 = sin(angle);
-	matrix->c1 = -sin(angle);
+	matrix->a3 = -sin(angle);
+	matrix->c1 = sin(angle);
 	matrix->c3 = cos(angle);
 	matrix->b2 = 1;
 	matrix->d4 = 1;
@@ -42,7 +42,7 @@ t_matrix		*rotate_z(double angle)
 	return (matrix);
 }
 
-void				rotate_map(t_map *map, double angle, char axis)
+void				rotate_model(t_model *model, double angle, char axis)
 {
 	t_matrix		*tmp;
 
@@ -53,6 +53,6 @@ void				rotate_map(t_map *map, double angle, char axis)
 		tmp = rotate_y(angle);
 	else if (axis == 'z')
 		tmp = rotate_z(angle);
-	transform_img(tmp, map);
+	transform_model(tmp, model);
 	free(tmp);
 }

@@ -1,50 +1,71 @@
-#include "fdf.h"
+#include "projector.h"
 
-void				calc_center(t_map *map)
+void				init_projector(t_projector *projector)
 {
-	t_point			*center;
-	int				x_len;
-	int				y_len;
-
-	x_len = map->lines[0]->cols - 1;
-	y_len = map->rows - 1;
-	center = (t_point *)malloc(sizeof(t_point));
-	center->x = (map->lines[y_len]->points[x_len]->x + map->lines[0]->points[0]->x) / 2;
-	center->y = (map->lines[y_len]->points[x_len]->y + map->lines[0]->points[0]->y) / 2;
-	map->center = center;
+	projector->img = (t_model_img *)malloc(sizeof(t_model_img));
+	projector->mlx = mlx_init();
+	projector->win = mlx_new_window(projector->mlx, WIN_WID, WIN_HEI, "WTC fdf");
 }
 
-int					play(t_generator *gen)
+void				kill_projector(t_projector *proj)
 {
-	reload(gen);
-	return (0);
+	int				c;
+	int				r;
+	t_point			**tmp_p;
+	t_row			**tmp_r;
+
+	c = 0;
+	r = 0;
+	tmp_p = NULL;
+	tmp_r = proj->model->rows;
+	while (tmp_r[r] != NULL)
+	{
+		tmp_p = tmp_r[r]->points;
+		c = 0;
+		while (tmp_p[c] != NULL)
+			free(tmp_p[c++]);
+		free(tmp_p);
+		free(tmp_r[r++]);
+		tmp_p = NULL;
+	}
+	free(tmp_r);
+	free(proj->model);
+	mlx_destroy_window(proj->mlx, proj->win);
+	free(proj->img);
+}
+
+void				refresh(t_projector *proj)
+
+{
+	t_model_img		*img;
+
+	img = proj->img;
+	img->img_ptr = mlx_new_image(proj->mlx, WIN_WID, WIN_HEI);
+	img->img_data = mlx_get_data_addr(img->img_ptr, &(img->bpp), &(img->ln_len), &(img->endian));
+	draw_map(proj);
+	//rastarize_model(proj);
+	mlx_put_image_to_window(proj->mlx, proj->win, img->img_ptr, 0, 0);
+	mlx_destroy_image(proj->mlx, img->img_ptr);
 }
 
 int 				main(int ac, char **av)
 {
 	int				fd;
-	t_map			*map;
-	t_generator		*gen;
+	t_projector		projector;
 
 	fd = 0;
-	gen = NULL;
-	map = NULL;
+	projector.model = NULL;
 	if (ac > 1)
 	{
 		fd = open(av[1], O_RDONLY);
-		if ((map = ft_save_map(fd)) != NULL)
+		if ((projector.model = read_model_data(fd)) != NULL)
 		{
-			gen = init_generator(map);
-			calc_center(gen->map);
-			//int w = (WIN_WID) / 2;
-			//int h = (WIN_HEI) / 2;
-			//scale_map(gen->map, 1);
-			//translate_map(gen->map, -gen->map->center->y + w, -gen->map->center->y + h, 0);
-			//t_matrix *m = modal_projection();
-			//transform_img(m, gen->map);			
-			mlx_expose_hook(gen->win, play, gen);
-			mlx_key_hook(gen->win, key_pressed, gen);
-			mlx_loop(gen->mlx);
+			init_projector(&projector);
+			calc_center(projectorodel);
+			isometric(projector.model);
+			mlx_expose_hook(projector.win, play, (void*)&projector);
+			mlx_key_hook(projector.win, key_pressed, (void*)&projector);
+			mlx_loop(projector.mlx);
 		}
 		else
 			ft_putendl("bad map file");
