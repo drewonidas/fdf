@@ -19,10 +19,13 @@ void				set_projection(t_model *model)
 	t_matrix		*matrix;
 
 	matrix = (t_matrix *)malloc(sizeof(t_matrix));
-	matrix->a1 = -1;
-	matrix->b2 = -1;
-	matrix->d4 = 1;
-	transform_model(matrix, model);
+	if (matrix != NULL)
+	{
+		matrix->a1 = -1;
+		matrix->b2 = -1;
+		matrix->d4 = 1;
+		transform_model(matrix, model);
+	}
 }
 
 void				isometric(t_model *model)

@@ -11,7 +11,7 @@ typedef struct		s_vector
 
 typedef struct		e_matrix
 {
-	t_vector		rows[4];
+	t_vector		*v[4];
 }					t_matrix;
 
 typedef struct		s_row
